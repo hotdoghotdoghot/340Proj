@@ -1,0 +1,6 @@
+AAPL
+HMC
+F
+X
+AMD
+NVDA
