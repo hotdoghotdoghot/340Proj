@@ -5,7 +5,7 @@
 #include <string.h>
 #include <curl/curl.h>
 
-
+Stock equityArray[MAX_TICKERS];
 
 
 /*
@@ -44,6 +44,7 @@ void* t_run(void* i)
 }
 
 
+
 int main(){
 
   char* infileName = "tickerList.txt";
@@ -67,16 +68,17 @@ int main(){
   }
 
   int num_tickers = i;
-  printf("%d\n", num_tickers);
+  printf("Num Tickers: %d\n", num_tickers);
 
 
-  /* Testing our file input and ticker storage */
+
+  /* Testing our file input and ticker storage
   int j=0;
   while(j<num_tickers && tickArray[j] != NULL){
    // printf("Ticker Number %d is: %s\n", j , tickArray[j] );
     j++;
   }
-
+  */
 
     curl_global_init(CURL_GLOBAL_DEFAULT); // Initializes the global curl variable (not thread safe)
 
@@ -91,15 +93,15 @@ int main(){
     if( pthread_create( &t_array[i], NULL, t_run, &tickArray[i] ) !=  0 ){ perror("THREAD CREATION FAILED: \n" ); return FAIL;}
     //printf("Thread made: %d\n", i );
 
+  }
 
-
+  for( int i = 0; i < num_tickers; i++ ){
 
     if( pthread_join( t_array[i], NULL) != 0 ){perror("THREAD FAILED TO JOIN\n"); return FAIL;}
     //printf("Thread joined: %d\n", i );
 
-
-
   }
+
 
 
     fclose(fpath);
@@ -107,4 +109,3 @@ int main(){
     return 0;
 
 }
-
