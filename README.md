@@ -1,4 +1,2 @@
 t_run
-
-gcc driver.c -lcurl -pthread -o driver
-./driver
+To compile : gcc driver.c -lcurl -pthread -o driver\n  To Run : ./driver
