@@ -13,24 +13,29 @@
     The C Standard Library was referenced via tutorialspoint.com
 */
 
+// To compile run this command
+// gcc driver.c -lcurl -pthread -o driver
+
 void* t_run(void* i)
 {
+    // creates a string of the GET request using the tickers located in the infile
+
     char* currTicker = (char*)i;
     char* request = malloc(sizeof(char)*1000);
     strcpy(request, "https://api.iextrading.com/1.0/stock/");
-    strcpy(request, currTicker);
-    strcpy(request, "/batch?types=quote,news,chart&range=1m&last=10");
-    printf("thread url is  %s",request);
+    strcat(request, currTicker);
+    //   printf("current ticker is %s\n", currTicker);
+    strcat(request, "/batch?types=quote");
+  //  strcat(request, ",news,chart&range=1m&last=10/"); //Should we decide to do more than just basic price info
+    printf("thread url is  %s\n",request);
 
-
-/*
+    // creates a curl object and gives it the CURLOPT_URL of the GET request
+    // then returns the JSON of the GET request
     CURL *curl;
     CURLcode myCurl;
-
     curl = curl_easy_init();
-    curl_easy_setopt(curl, CURLOPT_URL, "https://api.iextrading.com/1.0/");
+    curl_easy_setopt(curl, CURLOPT_URL, request);
     curl_easy_perform(curl);
-*/
 
 }
 
